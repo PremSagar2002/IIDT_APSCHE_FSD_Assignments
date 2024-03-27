@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tip Calculator</title>
+  <style>
+    .container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .input-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #tipAmount {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Tip Calculator</h2>
+    <div class="input-group">
+      <label for="billAmount">Bill Amount ($)</label>
+      <input type="number" id="billAmount" min="0">
+    </div>
+    <div class="input-group">
+      <label for="serviceQuality">Service Quality</label>
+      <input type="number" id="serviceQuality" min="1" max="5">
+    </div>
+    <div class="input-group">
+      <label for="numPeople">Number of People</label>
+      <input type="number" id="numPeople" min="1">
+    </div>
+    <button onclick="calculateTip()">Calculate Tip</button>
+    <div id="tipAmount"></div>
+  </div>
+
+  <script>
+    function calculateTip() {
+      var billAmount = parseFloat(document.getElementById('billAmount').value);
+      var serviceQuality = parseInt(document.getElementById('serviceQuality').value);
+      var numPeople = parseInt(document.getElementById('numPeople').value);
+
+      if (isNaN(billAmount) || isNaN(serviceQuality) || isNaN(numPeople)) {
+        alert('Please enter valid numbers for all fields.');
+        return;
+      }
+
+      if (serviceQuality < 1 || serviceQuality > 5 || numPeople < 1) {
+        alert('Service quality should be between 1 and 5, and number of people should be at least 1.');
+        return;
+      }
+
+      var tipPerPerson = (billAmount * (serviceQuality / 100)) / numPeople;
+      document.getElementById('tipAmount').innerText = 'Tip per person: $' + tipPerPerson.toFixed(2);
+    }
+  </script>
+</body>
+</html>
